@@ -1,0 +1,76 @@
+{
+  "_from": "turpan",
+  "_id": "turpan@0.3.2",
+  "_inBundle": false,
+  "_integrity": "sha1-WCv+48EZLV2SfKP60O58vsg5wfM=",
+  "_location": "/turpan",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "turpan",
+    "name": "turpan",
+    "escapedName": "turpan",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "http://r.npm.sankuai.com/turpan/download/turpan-0.3.2.tgz",
+  "_shasum": "582bfee3c1192d5d927ca3fad0ee7cbec839c1f3",
+  "_spec": "turpan",
+  "_where": "/Users/chuanjin/personal/carving",
+  "author": {
+    "name": "Ruan Yifeng"
+  },
+  "bin": {
+    "turpan": "bin/turpan.js"
+  },
+  "bugs": {
+    "url": "https://github.com/ruanyf/turpan/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "@iktakahiro/markdown-it-katex": "^4.0.1",
+    "clone": "^2.1.1",
+    "github-slugger": "^1.4.0",
+    "highlight.js": "^10.7.3",
+    "markdown-it": "^12.2.0",
+    "markdown-it-abbr": "^1.0.4",
+    "markdown-it-container": "^3.0.0",
+    "markdown-it-deflist": "^2.0.1",
+    "markdown-it-emoji": "^2.0.0",
+    "markdown-it-footnote": "^3.0.3",
+    "markdown-it-implicit-figures": "^0.10.0",
+    "markdown-it-imsize": "^2.0.1",
+    "markdown-it-ins": "^3.0.1",
+    "markdown-it-mark": "^3.0.1",
+    "markdown-it-sub": "^1.0.0",
+    "markdown-it-sup": "^1.0.0",
+    "markdown-it-task-lists": "^2.1.1",
+    "yargs": "^16.2.0"
+  },
+  "deprecated": false,
+  "description": "a wrapped markdown render based on Markdown-it",
+  "devDependencies": {
+    "tape": "^5.3.1"
+  },
+  "homepage": "https://github.com/ruanyf/turpan",
+  "keywords": [
+    "markdown"
+  ],
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "name": "turpan",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruanyf/turpan.git"
+  },
+  "scripts": {
+    "test": "tape test/*.test.js"
+  },
+  "version": "0.3.2"
+}

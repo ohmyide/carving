@@ -1,0 +1,5 @@
+        <main>
+        <div class="progress-indicator">我是页脚</div>
+    <div class="wrap">
+</body>
+</html>

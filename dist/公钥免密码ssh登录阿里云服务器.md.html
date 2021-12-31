@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta charset="utf-8">
+   <title>Documents</title>
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1">
+   <link rel="stylesheet" href="./assets/test.css">
+   <link rel="shortcut icon" href="">
+   <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?11bc17e004cc00e2ed1d71777294097e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body dir="ltr">
+    <div class="wrap">
+        <header>
+            <div class="header-wrap">
+                <a class="site-title header-item" href="./">
+                    Oh My IDE
+                    <b class="command_prompt"></b>
+                    <b class="blinking_cursor">_</b>
+                </a>
+                <a class="header-item" href="./about.html">README</a>
+            </div>
+        </header>
+        <main class="container">
+
+<p>从终端ssh登录阿里云服务器每次都要输入服务器ip后再输密码，很麻烦：</p>
+<pre class="hljs"><code>ssh root@101.201.XX.XX
+root@101.201.XX.XX&#x27;s password: // 再输入密码
+</code></pre>
+<p>登陆一次还有时间限制，过会没动静就掉线了，一天来回要登录好几次。</p>
+<!-- more -->
+<h2 id="解决方法上传公钥">解决方法：上传公钥 <a class="markdownIt-Anchor" href="#解决方法上传公钥">#</a></h2>
+<p>把自己的公钥上传到服务器上即可，如果还没有公钥，请百度、谷歌查阅生成，这里不做介绍。<br>
+有了公钥后即可使用一下命令上传至服务器：</p>
+<pre class="hljs"><code>ssh-copy-id root@101.201.XX.XX
+</code></pre>
+<h2 id="背后原理">背后原理 <a class="markdownIt-Anchor" href="#背后原理">#</a></h2>
+<p>上传成功后，下次登录时，服务器会先发出一段随机字符码，我方收到后用自己的私钥加密，注意是私钥加密，然后把加密后的码发给服务器，服务器用我方之前上传的公钥进行解密，解密成功则说明身份无误，这样就省去了输入密码这一步，设计的很机智啊。</p>
+<h2 id="成功提示">成功提示 <a class="markdownIt-Anchor" href="#成功提示">#</a></h2>
+<p>上传成功后，输入以下密码，会看到以下提示：</p>
+<pre class="hljs"><code>Number of key(s) added:        1
+
+Now try logging into the machine, with:   &quot;ssh &#x27;root@101.201.XX.XX&#x27;&quot;
+and check to make sure that only the key(s) you wanted were added.
+</code></pre>
+<h2 id="意外报错与解决方法">意外报错与解决方法 <a class="markdownIt-Anchor" href="#意外报错与解决方法">#</a></h2>
+<p>在我的mac上运行<code>ssh-copy-id</code>上传公钥命令后报错：</p>
+<pre class="hljs"><code>zsh: command not found: ssh-copy-id
+</code></pre>
+<p>原因是mac上没有安装<code>ssh-copy-id</code>，执行以下命令安装：<br>
+Homebrew安装：</p>
+<pre class="hljs"><code>brew install ssh-copy-id
+</code></pre>
+<p>什么？你还没有安装Homebrew？用：</p>
+<pre class="hljs"><code>curl -L https://raw.githubusercontent.com/beautifulcode/ssh-copy-id-for-OSX/master/install.sh | sh
+</code></pre>
+<p>安装完成后运行上传公钥命令即可，此时再ssh登录就不用输入密码了。</p>
+<h2 id="ssh登录依然麻烦还有招">ssh登录依然麻烦？还有招 <a class="markdownIt-Anchor" href="#ssh登录依然麻烦还有招">#</a></h2>
+<p>每次登录输入<code>ssh root@101.201.XX.XX</code>还是不够简洁，那就用alias自定义一个命令吧，比如定义为：<code>goaliyun</code>，具体步骤在这一篇博客：<a href="http://chayangge.com/2016/07/18/mac%E7%BB%88%E7%AB%AF%E7%94%A8alias%E8%87%AA%E5%AE%9A%E4%B9%89shell%E5%91%BD%E4%BB%A4/" target="_blank" rel="noopener">用alias自定义shell命令</a></p>
+<hr>
+<h2 id="补充codingnet上免用户名和密码更新代码">补充：coding.net上免用户名和密码更新代码 <a class="markdownIt-Anchor" href="#补充codingnet上免用户名和密码更新代码">#</a></h2>
+<p>运行：</p>
+<pre class="hljs"><code>git config remote.origin.url https://username:password@git.coding.net/XX/XX.git
+</code></pre>
+        <main>
+        <div class="progress-indicator">我是页脚</div>
+    <div class="wrap">
+</body>
+</html>

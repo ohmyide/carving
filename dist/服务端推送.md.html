@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta charset="utf-8">
+   <title>Documents</title>
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1">
+   <link rel="stylesheet" href="./assets/test.css">
+   <link rel="shortcut icon" href="">
+   <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?11bc17e004cc00e2ed1d71777294097e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body dir="ltr">
+    <div class="wrap">
+        <header>
+            <div class="header-wrap">
+                <a class="site-title header-item" href="./">
+                    Oh My IDE
+                    <b class="command_prompt"></b>
+                    <b class="blinking_cursor">_</b>
+                </a>
+                <a class="header-item" href="./about.html">README</a>
+            </div>
+        </header>
+        <main class="container">
+
+<p>目前服务端推送的方式有：</p>
+<ul>
+<li>HTTP长连接模拟</li>
+<li>websocket</li>
+<li>Server-Sent Events（SSE基于HTML5）</li>
+<li>HTTP2.0 服务端推送</li>
+</ul>
+<h2 id="http长连接模拟">HTTP长连接模拟 <a class="markdownIt-Anchor" href="#http长连接模拟">#</a></h2>
+<p>通常有两种实现：</p>
+<ul>
+<li>服务端收到请求后，一直hold，直到有数据更新时才给出相应，并关闭连接，由客户端发起第二次长连接</li>
+<li>服务端有更新后一直不关闭连接，用流的方式，不断发送后续更新的数据</li>
+</ul>
+<h2 id="websocket">websocket <a class="markdownIt-Anchor" href="#websocket">#</a></h2>
+<p>最为“正规的”全双工实时通信，这里不多介绍；</p>
+<h2 id="server-sent-eventssse基于html5">Server-Sent Events（SSE基于HTML5） <a class="markdownIt-Anchor" href="#server-sent-eventssse基于html5">#</a></h2>
+<p>本质上依然是单项通信，只能由服务端发起，服务端响应一个数据流，不断的发送数据，如视频播放，文件流下载；<br>
+基于客户端建立EventSource对象，服务端以text/event-stream 格式发送事件；</p>
+<pre class="hljs"><code><span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.EventSource) {
+  <span class="hljs-comment">// 建立 EventSource 对象链接服务器</span>
+  <span class="hljs-keyword">const</span> source = <span class="hljs-keyword">new</span> EventSource(<span class="hljs-string">&#x27;http://localhost:2000&#x27;</span>);
+
+  <span class="hljs-comment">// 链接成功后会触发 open 事件</span>
+  source.addEventListener(<span class="hljs-string">&#x27;open&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Connected&#x27;</span>);
+  }, <span class="hljs-literal">false</span>);
+
+  <span class="hljs-comment">// 服务器发送信息到客户端时，若是没有 event 字段，默认会触发 message 事件</span>
+  source.addEventListener(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`data: <span class="hljs-subst">${e.data}</span>`</span>);
+  }, <span class="hljs-literal">false</span>);
+
+  <span class="hljs-comment">// 自定义 EventHandler，在收到 event 字段为 slide 的消息时触发</span>
+  source.addEventListener(<span class="hljs-string">&#x27;slide&#x27;</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`data: <span class="hljs-subst">${e.data}</span>`</span>); <span class="hljs-comment">// =&gt; data: 7</span>
+  }, <span class="hljs-literal">false</span>);
+
+  <span class="hljs-comment">// 链接异常时会触发 error 事件并自动重连</span>
+  source.addEventListener(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+    <span class="hljs-keyword">if</span> (e.target.readyState === EventSource.CLOSED) {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Disconnected&#x27;</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (e.target.readyState === EventSource.CONNECTING) {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Connecting...&#x27;</span>);
+    }
+  }, <span class="hljs-literal">false</span>);
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Your browser doesn\&#x27;t support SSE&#x27;</span>);
+}
+</code></pre>
+<p>服务端text/event-stream：</p>
+<pre class="hljs"><code><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>);
+
+http.createServer(<span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+
+  <span class="hljs-comment">// 服务器声明接下来发送的是事件流</span>
+  res.writeHead(<span class="hljs-number">200</span>, {
+    <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;text/event-stream&#x27;</span>,
+    <span class="hljs-string">&#x27;Cache-Control&#x27;</span>: <span class="hljs-string">&#x27;no-cache&#x27;</span>,
+    <span class="hljs-string">&#x27;Connection&#x27;</span>: <span class="hljs-string">&#x27;keep-alive&#x27;</span>,
+    <span class="hljs-string">&#x27;Access-Control-Allow-Origin&#x27;</span>: <span class="hljs-string">&#x27;*&#x27;</span>,
+  });
+
+  <span class="hljs-comment">// 发送消息</span>
+  <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> {
+    res.write(<span class="hljs-string">&#x27;event: slide\n&#x27;</span>); <span class="hljs-comment">// 事件类型</span>
+    res.write(<span class="hljs-string">`id: <span class="hljs-subst">${+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()}</span>\n`</span>); <span class="hljs-comment">// 消息 ID</span>
+    res.write(<span class="hljs-string">&#x27;data: 7\n&#x27;</span>); <span class="hljs-comment">// 消息数据</span>
+    res.write(<span class="hljs-string">&#x27;retry: 10000\n&#x27;</span>); <span class="hljs-comment">// 重连时间</span>
+    res.write(<span class="hljs-string">&#x27;\n\n&#x27;</span>); <span class="hljs-comment">// 消息结束</span>
+  }, <span class="hljs-number">3000</span>);
+
+  <span class="hljs-comment">// 发送注释保持长链接</span>
+  <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> {
+    res.write(<span class="hljs-string">&#x27;: \n\n&#x27;</span>);
+  }, <span class="hljs-number">12000</span>);
+}).listen(<span class="hljs-number">2000</span>)
+</code></pre>
+<p>为什么有了websocket还要有SSE？</p>
+<ul>
+<li>websocket全双工，SSE是以客户端发起的单向通信，如：股票、新闻推送全依赖服务端更新的场景；</li>
+<li>SSE使用HTTP协议，无需而外的升级websocket复杂协议</li>
+</ul>
+<h2 id="http20-服务端推送">HTTP2.0 服务端推送 <a class="markdownIt-Anchor" href="#http20-服务端推送">#</a></h2>
+<p>这个属于HTTP2.0的细节，最容易被忽视，其能够检测html文档中的css、js等静态文件，而不需要等浏览器解析到，再而外发起请求，属于服务端推送在“性能优化”场景的应用。</p>
+        <main>
+        <div class="progress-indicator">我是页脚</div>
+    <div class="wrap">
+</body>
+</html>
