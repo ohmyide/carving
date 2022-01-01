@@ -6,7 +6,7 @@ if(!arg[2]) {
     return;
 }
 
-console.log('-----arg:',arg,new Date().toLocaleDateString());
+// console.log(arg,new Date().toLocaleDateString());
 const date = new Date().toLocaleDateString();
 const initContent =
 `---
@@ -18,5 +18,5 @@ tags:
 `;
 fs.writeFile(path.resolve(path.resolve(process.cwd()),`./md/${date} ${arg[2]}.md`), initContent, (err) => {
     if (err) throw err;
-    console.log('The file has been saved!');
+    console.log(`${date} ${arg[2]}.md 创建成功`);
 });

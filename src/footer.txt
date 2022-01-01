@@ -1,5 +1,10 @@
-        <main>
-        <div class="progress-indicator">我是页脚</div>
-    <div class="wrap">
+        </main>
+        <footer class="progress-indicator">
+            <div class="footer-link">
+                <a target="_blank" href="https://github.com/ohmyide">GITHUB</a>
+            </div>
+            <a class="beian" target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">京ICP备17001765号-2</a>
+        </footer>
+    </div>
 </body>
 </html>

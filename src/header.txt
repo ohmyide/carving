@@ -3,12 +3,13 @@
 <head>
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta charset="utf-8">
-   <title>Documents</title>
-   <meta name="description" content="">
-   <meta name="author" content="">
+   <title>Oh My IDE - The best place to learn IDE development</title>
+   <meta name="description" content="IDE,IDE开发,Theia,Theia开发,oh my ide" />
+   <meta name="keywords" content="IDE,Theia,IDE开发,Theia开发, Visual Studio Code开发" />
+   <meta name="author" content="oh my IDE,ohmyide" />
    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1">
-   <link rel="stylesheet" href="./assets/test.css">
-   <link rel="shortcut icon" href="">
+   <link rel="stylesheet" href="./assets/index.css">
+   <link rel="shortcut icon" href="./assets/icon.png">
    <script>
 var _hmt = _hmt || [];
 (function() {

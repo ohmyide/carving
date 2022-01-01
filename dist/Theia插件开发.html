@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta charset="utf-8">
+   <title>Oh My IDE - The best place to learn IDE development</title>
+   <meta name="description" content="IDE,IDE开发,Theia,Theia开发,oh my ide" />
+   <meta name="keywords" content="IDE,Theia,IDE开发,Theia开发, Visual Studio Code开发" />
+   <meta name="author" content="oh my IDE,ohmyide" />
+   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1">
+   <link rel="stylesheet" href="./assets/index.css">
+   <link rel="shortcut icon" href="./assets/icon.png">
+   <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?11bc17e004cc00e2ed1d71777294097e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body dir="ltr">
+    <div class="wrap">
+        <header>
+            <div class="header-wrap">
+                <a class="site-title header-item" href="./">
+                    Oh My IDE
+                    <b class="command_prompt"></b>
+                    <b class="blinking_cursor">_</b>
+                </a>
+                <a class="header-item" href="./about.html">README</a>
+            </div>
+        </header>
+        <main class="container">
+
+<h1 id="theia开发入门插件">Theia开发入门：插件 <a class="markdownIt-Anchor" href="#theia开发入门插件">#</a></h1>
+<p>Theia：An Open, Flexible and Extensible Cloud &amp; Desktop IDE Platform，一个开放、灵活、可扩展的远端（web）和本地（electron）IDE 平台；</p>
+<h2 id="theia的市场定位">Theia的市场定位 <a class="markdownIt-Anchor" href="#theia的市场定位">#</a></h2>
+<h2 id="theia插件和vs-code插件的关系">Theia插件和VS Code插件的关系 <a class="markdownIt-Anchor" href="#theia插件和vs-code插件的关系">#</a></h2>
+<p>Theia为开发者提供的功能开发途径有两个：</p>
+<ul>
+<li>插件</li>
+<li>拓展</li>
+</ul>
+<p>VS Code对外提供的开发途径只有一种：</p>
+<ul>
+<li>插件</li>
+</ul>
+<p>在VS Code文档中称为：<a href="https://code.visualstudio.com/api" target="_blank" rel="noopener">Extension</a></p>
+<h2 id="theia插件和theia拓展的关系">Theia插件和Theia拓展的关系 <a class="markdownIt-Anchor" href="#theia插件和theia拓展的关系">#</a></h2>
+<p>Theia插件等同于VS Code插件，是利用 IDE 在各个模块对外开放的 API 来实现自定义功能，这意味着：用户所能开发的范围天然受制于暴露的 API 数量，VS Code 插件市场虽然异常繁荣，但无法改变 IDE 主体框架，均属于“夹缝中的一小片自由地”；</p>
+<p>对于自定义程度较高的业务场景，如：小程序 IDE，插件显然无法满足需求，因此Theia提供了拓展机制，开发者可以基于拓展，灵活的制定自己想要的 IDE，如：Mbed Studio</p>
+<img src="/Users/wangjin/Library/Application Support/typora-user-images/image-20211030023324632.png" alt="image-20211030023324632" style="zoom:50%;" />
+<h2 id="开发theia插件先了解vs-code插件">开发Theia插件：先了解VS Code插件 <a class="markdownIt-Anchor" href="#开发theia插件先了解vs-code插件">#</a></h2>
+<p>通过VS Code插件形成全局知识，VS Code文档相对比较全，插件案例很多，插件开发经验能无缝迁移到Theia的插件开发中，且Theia插件能兼容 VS Code 插件，其原理在于Theia源码中 plugin-vscode-init.ts 文件：</p>
+<pre class="hljs"><code><span class="hljs-comment">// vscodeModuleName: vscode</span>
+<span class="hljs-built_in">module</span>._load = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">request: string, parent: any, isMain: {}</span>): <span class="hljs-title">any</span> </span>{
+    <span class="hljs-keyword">if</span> (request !== vscodeModuleName) {
+        <span class="hljs-keyword">return</span> internalLoad.apply(<span class="hljs-built_in">this</span>, <span class="hljs-built_in">arguments</span>);
+    }
+
+    <span class="hljs-keyword">const</span> plugin = findPlugin(parent.filename);
+    <span class="hljs-keyword">if</span> (plugin) {
+        <span class="hljs-keyword">const</span> apiImpl = pluginsApiImpl.get(plugin.model.id);
+        <span class="hljs-keyword">return</span> apiImpl;
+    }
+
+    <span class="hljs-keyword">if</span> (!defaultApi) {
+        <span class="hljs-built_in">console</span>.warn(<span class="hljs-string">`Could not identify plugin for &#x27;Theia&#x27; require call from <span class="hljs-subst">${parent.filename}</span>`</span>);
+        defaultApi = pluginApiFactory(emptyPlugin);
+    }
+
+    <span class="hljs-keyword">return</span> defaultApi;
+};
+</code></pre>
+<p>当Theia插件中的代码加载vscode模块时，被拦截到内部新建的vscode对象中；</p>
+<p>通过vs插件，能够获得以下能力地图：</p>
+<ul>
+<li>理解插件的能力范围</li>
+<li>哪些功能大致可以用插件的哪些能力实现</li>
+</ul>
+        </main>
+        <footer class="progress-indicator">
+            <div class="footer-link">
+                <a target="_blank" href="https://github.com/ohmyide">GITHUB</a>
+            </div>
+            <a class="beian" target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">京ICP备17001765号-2</a>
+        </footer>
+    </div>
+</body>
+</html>
