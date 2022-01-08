@@ -22,7 +22,7 @@ let footer = fs
 function createIndex() {
 	const entries = fg.sync(`${path.resolve(process.cwd(), "./md")}/**.md`, {
 		dot: false,
-	});
+	}).reverse();
 	console.log(entries);
 	const metaList = [];
 	entries.forEach((uri) => {

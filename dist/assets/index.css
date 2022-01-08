@@ -58,11 +58,9 @@ display: flex;
 font-family: 'ohmyide';
 justify-content: space-between;
 font-weight: 440;
-font-size: 1.4rem;
+font-size: 1.8rem;
 }
 .header-wrap a {
-/* color: rgb(32,215,240) */
-/* color: #637AFE; */
 color: rgb(114,140,255);  
 color: #c5d928;
 color: #fff;
@@ -70,7 +68,7 @@ color: #fff;
 }
 
 .command_prompt {
-font-size: 16px;
+/* font-size: 16px; */
 margin-left: 0.1em;
 }
 .command_prompt:before {
@@ -84,7 +82,7 @@ color: rgb(242, 71, 132);
 }
 .blinking_cursor {
 animation: blinker 1s none infinite;
-font-size: 20px;
+/* font-size: 20px; */
 color: rgb(242, 71, 132);
 margin-left: -4px;
 }
@@ -288,6 +286,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 footer {
   padding-bottom: 1px;
   color: #464f5a;
+  border-top: 1px dotted;
 }
 .footer-link {
   height: 100px;
