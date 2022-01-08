@@ -2,16 +2,16 @@
   "name": "carving",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "bin": {
+    "carving": "cli.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "new": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "fast-glob": "^3.2.7",
-    "markdown-it-meta": "0.0.1",
-    "markdown-yaml-metadata-parser": "^3.0.0",
     "turpan": "^0.3.2"
   }
 }
