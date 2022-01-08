@@ -38,12 +38,13 @@ function createIndex() {
 		};
 		metaList.push(metaDataObj);
 		const HTMLContent = md.render(result[2]);
+		const articleTitle = header.replace(/<title><\/title>/g, `<title>${title} - Oh My IDE</title>`);
 		fs.writeFile(
 			path.resolve(
 				path.resolve(process.cwd()),
 				`./dist/${title}.html`
 			),
-			header + HTMLContent + footer,
+			articleTitle + HTMLContent + footer,
 			(err) => {
 				if (err) throw err;
 				console.log(`${title} 编译成功`);
@@ -70,16 +71,17 @@ function createIndex() {
 		`
 	})
 		
-	
-	fs.writeFile(path.resolve(path.resolve(process.cwd()),`./dist/index.html`), header + list.join('') + footer, (err) => {
+	const indexTitle = header.replace(/<title><\/title>/g, '<title>Oh My IDE - The best place to learn IDE development</title>');
+	fs.writeFile(path.resolve(path.resolve(process.cwd()),`./dist/index.html`), indexTitle + list.join('') + footer, (err) => {
         if (err) throw err;
         console.log('/dist/index.html has been saved!');
     });
 }
 
 function createAbout() {
+	const aboutTitle = header.replace(/<title><\/title>/g, '<title>Oh My IDE - The best place to learn IDE development</title>');
 	let about = fs.readFileSync(path.resolve(path.resolve(process.cwd()), `src/about.txt`)).toString();
-	fs.writeFile(path.resolve(path.resolve(process.cwd()),`./dist/about.html`), header + about, (err) => {
+	fs.writeFile(path.resolve(path.resolve(process.cwd()),`./dist/about.html`), aboutTitle + about, (err) => {
         if (err) throw err;
         console.log('/dist/about.html has been saved!');
     });
